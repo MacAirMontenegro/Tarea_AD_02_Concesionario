@@ -1,9 +1,12 @@
 package org.montengro.controller;
 
+import org.montengro.data.Binario_Manager;
+import org.montengro.data.Json_Manager;
 import org.montengro.model.Coche;
 import org.montengro.model.Concesionario;
 import org.montengro.view.ConsolaView;
 
+import java.io.File;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -11,7 +14,9 @@ import java.util.Scanner;
 
 public class ConcesionarioController {
   private static final List<Concesionario> CONCESIONARIO_LIST = new ArrayList<>();
+  private static final String DIRECTORIO = "Archivos/";
   private final ConsolaView view = new ConsolaView();
+
 
   public void iniciar() {
     crearDirectorioSiNoExiste();
@@ -32,7 +37,7 @@ public class ConcesionarioController {
           listarConcesionariosYCoches();
           break;
         case 4:
-          exportarJsonYXml();
+          exportarFormatos();
           break;
         case 5:
           guardarDatos();
@@ -43,6 +48,25 @@ public class ConcesionarioController {
       }
     } while (opcion != 5);
     scanner.close();
+  }
+
+  private void crearDirectorioSiNoExiste() {
+    File directorio = new File(DIRECTORIO);
+    if (directorio.exists()) {
+      return;
+    }
+    if (directorio.mkdir()) {
+      view.mostrarMensaje("Directorio '" + DIRECTORIO + "' creado en: " + directorio.getAbsolutePath());
+    } else {
+      view.mostrarMensaje("No se pudo crear el directorio '" + DIRECTORIO + "'.");
+    }
+  }
+
+  private void cargarDatos() {
+    File archivo = new File(DIRECTORIO + "concesionarios.dat");
+    if (archivo.exists()) {
+      List<Concesionario> datosCargados = Binario_Manager.leerArchivoBinario("concesionarios.dat");
+    }
   }
 
   private void insertarConcesionario(Scanner scanner) {
@@ -81,20 +105,31 @@ public class ConcesionarioController {
   }
 
   private void listarConcesionariosYCoches() {
-    System.out.println("estas en crear lista");
+    if (CONCESIONARIO_LIST.isEmpty()) {
+      view.mostrarMensaje("No hay concesionarios disponibles.");
+      return;
+    }
+    CONCESIONARIO_LIST.forEach(concesionario -> {
+      view.mostrarMensaje("Concesionario: " + concesionario.getNombre());
+      view.mostrarMensaje("Descripción: " + concesionario.getDescripcion());
+      if (concesionario.getCoches().isEmpty()) {
+        view.mostrarMensaje("No hay coches en este concesionario.");
+        return;
+      }
+      concesionario.getCoches().forEach(coche -> {
+        view.mostrarMensaje("  Coche: " + coche.getMatricula());
+        view.mostrarMensaje("    Fecha de matriculación: " + coche.getFechaMatriculacion());
+        view.mostrarMensaje("    Kilómetros: " + coche.getKilometros());
+      });
+    });
+
   }
 
-  private void exportarJsonYXml() {
-    System.out.println("Exportando las cosas");
+  private void exportarFormatos() {
+    Json_Manager.serializarAJson(CONCESIONARIO_LIST, "concesionarios.json");
   }
 
   private void guardarDatos() {
     System.out.println("datos guardados");
-  }
-
-  private void cargarDatos() {
-  }
-
-  private void crearDirectorioSiNoExiste() {
   }
 }
