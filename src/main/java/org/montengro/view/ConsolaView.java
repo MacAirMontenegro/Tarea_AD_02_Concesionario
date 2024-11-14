@@ -21,10 +21,12 @@ public class ConsolaView {
     System.out.println("1. Insertar concesionario");
     System.out.println("2. Insertar coche");
     System.out.println("3. Listar concesionarios y coches");
-    System.out.println("4. Exportar a JSON y XML");
+    System.out.println("4. Exportar a .json, .xml y .data");
     System.out.println("5. Guardar datos y salir");
     System.out.print("Elija una opción: ");
-    return scanner.nextInt();
+    int opcion = scanner.nextInt();
+    scanner.nextLine(); // Consumir la línea restante
+    return opcion;
   }
 
   /**
@@ -46,7 +48,9 @@ public class ConsolaView {
    */
   public int leerEntero(String mensaje) {
     System.out.println(mensaje);
-    return scanner.nextInt();
+    int entero = scanner.nextInt();
+    scanner.nextLine(); // Consumir la línea restante
+    return entero;
   }
 
   /**
