@@ -5,9 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f0fa3372-ac7a-4a4a-9a8b-347a41177d11" name="Changes" comment="Lista la casle main">
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/montengro/controller/ConcesionarioController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/montengro/data/Binario_Manager.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/montengro/data/Json_Manager.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/montengro/view/ConsolaView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/montengro/view/ConsolaView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/montengro/controller/ConcesionarioController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/montengro/controller/ConcesionarioController.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -25,17 +26,25 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="GitHubPullRequestSearchHistory"><![CDATA[{
+  "history": [
+    {
+      "state": "MERGED",
+      "assignee": "MacAirMontenegro"
+    },
+    {
+      "state": "MERGED"
+    }
+  ],
   "lastFilter": {
-    "state": "OPEN",
-    "assignee": "MacAirMontenegro"
+    "state": "MERGED"
   }
 }]]></component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/MacAirMontenegro/Tarea_AD_02_Concesionario.git",
-    "accountId": "50afedf3-bd4a-4a46-ba37-cc33db08e22b"
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/MacAirMontenegro/Tarea_AD_02_Concesionario.git&quot;,
+    &quot;accountId&quot;: &quot;50afedf3-bd4a-4a46-ba37-cc33db08e22b&quot;
   }
-}]]></component>
+}</component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 5
 }</component>
@@ -55,11 +64,15 @@
     "git-widget-placeholder": "main",
     "kotlin-language-version-configured": "true",
     "onboarding.tips.debug.path": "/Volumes/SSD-EXTERNO/WS_IntelliJ_IDEA/Tarea_AD_02_Concesionario/src/main/java/org/montengro/Main.java",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.0",
     "settings.editor.selected.configurable": "preferences.pluginManager"
   }
 }]]></component>
   <component name="RecentsManager">
     <key name="CreateClassDialog.RecentsKey">
+      <recent name="org.montengro.data" />
       <recent name="org.montengro.model" />
     </key>
   </component>
