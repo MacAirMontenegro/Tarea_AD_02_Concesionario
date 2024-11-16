@@ -6,9 +6,20 @@ import org.montengro.view.ConsolaView;
 import java.io.*;
 import java.util.List;
 
+/**
+ * Clase para gestionar la serialización y deserialización de objetos en formato binario.
+ *
+ * @version 1.0
+ */
 public class Binario_Manager {
   private static final String DIRECTORIO = "Archivos/";
 
+  /**
+   * Escribe una lista de concesionarios en un archivo binario.
+   *
+   * @param archivo el nombre del archivo donde se guardará la lista.
+   * @param concesionarioList la lista de concesionarios a serializar.
+   */
   public static void escribirArchivoBinario(String archivo, List<Concesionario> concesionarioList) {
     ConsolaView view = new ConsolaView();
     ObjectOutputStream objectOutputStream = null;
@@ -21,6 +32,12 @@ public class Binario_Manager {
     }
   }
 
+  /**
+   * Lee una lista de concesionarios desde un archivo binario.
+   *
+   * @param archivo el nombre del archivo desde donde se leerá la lista.
+   * @return la lista de concesionarios deserializada.
+   */
   public static List<Concesionario> leerArchivoBinario(String archivo) {
     ConsolaView view = new ConsolaView();
     ObjectInputStream inputStream = null;

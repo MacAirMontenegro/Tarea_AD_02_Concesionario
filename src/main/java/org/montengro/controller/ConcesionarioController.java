@@ -2,6 +2,7 @@ package org.montengro.controller;
 
 import org.montengro.data.Binario_Manager;
 import org.montengro.data.Json_Manager;
+import org.montengro.data.Xml_Manager;
 import org.montengro.model.Coche;
 import org.montengro.model.Concesionario;
 import org.montengro.view.ConsolaView;
@@ -12,12 +13,21 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * Controlador para gestionar las operaciones de los concesionarios y coches.
+ * Proporciona métodos para iniciar la aplicación, insertar concesionarios y coches,
+ * listar concesionarios y coches, exportar datos a diferentes formatos y guardar datos.
+ *
+ * @version 1.0
+ */
 public class ConcesionarioController {
   private static final List<Concesionario> CONCESIONARIO_LIST = new ArrayList<>();
   private static final String DIRECTORIO = "Archivos/";
   private final ConsolaView view = new ConsolaView();
 
-
+  /**
+   * Inicia la aplicación, mostrando el menú principal y gestionando las opciones seleccionadas por el usuario.
+   */
   public void iniciar() {
     crearDirectorioSiNoExiste();
     cargarDatos();
@@ -28,10 +38,10 @@ public class ConcesionarioController {
 
       switch (opcion) {
         case 1:
-          insertarConcesionario(scanner);
+          insertarConcesionario();
           break;
         case 2:
-          insertarCoche(scanner);
+          insertarCoche();
           break;
         case 3:
           listarConcesionariosYCoches();
@@ -50,6 +60,9 @@ public class ConcesionarioController {
     scanner.close();
   }
 
+  /**
+   * Crea el directorio para almacenar los archivos si no existe.
+   */
   private void crearDirectorioSiNoExiste() {
     File directorio = new File(DIRECTORIO);
     if (directorio.exists()) {
@@ -62,14 +75,24 @@ public class ConcesionarioController {
     }
   }
 
+  /**
+   * Carga los datos de los concesionarios desde un archivo binario.
+   */
   private void cargarDatos() {
     File archivo = new File(DIRECTORIO + "concesionarios.dat");
-    if (archivo.exists()) {
-      List<Concesionario> datosCargados = Binario_Manager.leerArchivoBinario("concesionarios.dat");
+    List<Concesionario> datosCargados = archivo.exists() ? Binario_Manager.leerArchivoBinario("concesionarios.dat") : null;
+
+    if (datosCargados != null) {
+      CONCESIONARIO_LIST.addAll(datosCargados);
+    } else {
+      view.mostrarMensaje("El archivo 'concesionarios.dat' no existe. Se creará uno nuevo al guardar los datos.");
     }
   }
 
-  private void insertarConcesionario(Scanner scanner) {
+  /**
+   * Inserta un nuevo concesionario en la lista.
+   */
+  private void insertarConcesionario() {
     String nombre = view.leerTexto("Ingrese el nombre del concesionario:");
     String descripcion = view.leerTexto("Ingrese la descripción del concesionario:");
     Concesionario concesionario = new Concesionario(nombre, descripcion, new ArrayList<>());
@@ -77,7 +100,10 @@ public class ConcesionarioController {
     view.mostrarMensaje("Concesionario añadido.");
   }
 
-  private void insertarCoche(Scanner scanner) {
+  /**
+   * Inserta un nuevo coche en un concesionario existente.
+   */
+  private void insertarCoche() {
     Coche coche = new Coche();
     if (CONCESIONARIO_LIST.isEmpty()) {
       view.mostrarMensaje("No hay concesionarios disponibles. Primero añada un concesionario.");
@@ -100,10 +126,11 @@ public class ConcesionarioController {
     } else {
       view.mostrarMensaje("Selección no válida.");
     }
-
-
   }
 
+  /**
+   * Lista todos los concesionarios y sus coches.
+   */
   private void listarConcesionariosYCoches() {
     if (CONCESIONARIO_LIST.isEmpty()) {
       view.mostrarMensaje("No hay concesionarios disponibles.");
@@ -122,14 +149,20 @@ public class ConcesionarioController {
         view.mostrarMensaje("    Kilómetros: " + coche.getKilometros());
       });
     });
-
   }
 
+  /**
+   * Exporta los datos de los concesionarios a formatos JSON y XML.
+   */
   private void exportarFormatos() {
     Json_Manager.serializarAJson(CONCESIONARIO_LIST, "concesionarios.json");
+    Xml_Manager.serializarAXml(CONCESIONARIO_LIST, "concesionarios.xml");
   }
 
+  /**
+   * Guarda los datos de los concesionarios en un archivo binario.
+   */
   private void guardarDatos() {
-    System.out.println("datos guardados");
+    Binario_Manager.escribirArchivoBinario("concesionarios.dat", CONCESIONARIO_LIST);
   }
 }
